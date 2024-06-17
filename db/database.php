@@ -3,7 +3,7 @@
 $server   = "localhost";
 $username = "root";
 $password = "makan";
-$database = "db_permintaan";
+$database = "ga_connect";
 
 // koneksi database
 $mysqli = new mysqli($server, $username, $password, $database);
