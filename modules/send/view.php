@@ -13,7 +13,80 @@
     </div>
 </section>
 <section class="content">
+    <!-- The Modal -->
+    <div class="modal fade" id="requestModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Request and Responder</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form id="requestForm">
+                        <!-- tb_request Fields -->
+                        <h5>Request Information</h5>
+                        <div class="form-group">
+                            <label for="reqId">Request ID</label>
+                            <input type="text" class="form-control" id="reqId" name="reqId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subPesan">Subject</label>
+                            <input type="text" class="form-control" id="subPesan" name="subPesan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Description</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="levelPrioritas">Priority Level</label>
+                            <select class="form-control" id="levelPrioritas" name="levelPrioritas" required>
+                                <option value="low">Low</option>
+                                <option value="mid">Mid</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="waiting">Waiting</option>
+                                <option value="on process">On Process</option>
+                                <option value="done">Done</option>
+                                <option value="refused">Refused</option>
+                            </select>
+                        </div>
+
+                        <!-- tb_perespon Fields -->
+                        <h5>Responder Information</h5>
+                        <div class="form-group">
+                            <label for="idPerespon">Responder ID</label>
+                            <input type="text" class="form-control" id="idPerespon" name="idPerespon">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipePerespon">Responder Type</label>
+                            <select class="form-control" id="tipePerespon" name="tipePerespon" required>
+                                <option value="creator">Creator</option>
+                                <option value="responder">Responder</option>
+                                <option value="cordinator">Coordinator</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal">
+            Add Request and Responder
+        </button>
         <div class="row">
             <div class="col-12">
                 <div class="card">
