@@ -113,6 +113,7 @@ session_start();
 	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script type="text/javascript" src="assets/js/script.js"></script>
+	<?php if ($_GET['module'] == 'ticket_detail'){echo '<script type="text/javascript" src="assets/js/detail.js"></script>';}?>
 </body>
 
 </html>

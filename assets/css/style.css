@@ -2,14 +2,18 @@
     width: 1000px;
     margin: 20px auto;
 }
-.ck-editor__editable[role="textbox"] {
-    /* Editing area */
-    min-height: 200px;
+.timeline>div>.timeline-item>.timeline-body, .timeline>div>.timeline-item>.timeline-footer{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
 }
-.ck-content .image {
-    /* Block images */
-    max-width: 80%;
-    margin: 20px auto;
+.tab-custom{
+    min-height: 700px;
+    max-height: 800px;
+    overflow: auto;
+}
+.ck-editor__editable_inline {
+    min-height: 200px;
 }
 /* .modal{
     display: block !important;

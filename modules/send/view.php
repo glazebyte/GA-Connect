@@ -14,9 +14,9 @@
 
     <!-- The Modal -->
     <div class="modal fade" id="requestModal">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <form id="ticket_form" method="post" action="api.php/new_ticket">
+        <form id="ticket_form" method="post" action="api.php/new_ticket">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">Buat Ticket</h4>
@@ -60,9 +60,10 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
-                </form>
+
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
 
@@ -100,9 +101,9 @@
                                             <?php
                                             $no = 1;
                                             $sql = "SELECT request.id,request.sub_pesan ,request.level_prioritas ,request.status ,request.created_at ,request.update_at ,
-                                                        GROUP_CONCAT( IF(perespon.tipe='creator',pegawai.nama,NULL))AS creator,                         
-                                                        GROUP_CONCAT( IF(perespon.tipe='creator',pegawai.bidang,NULL))AS bidang_creator,
-                                                        GROUP_CONCAT( IF(perespon.tipe='cordinator',pegawai.nama,NULL) )as cordinator
+                                                        GROUP_CONCAT( IF(perespon.tipe_perespon='creator',pegawai.nama,NULL))AS creator,                         
+                                                        GROUP_CONCAT( IF(perespon.tipe_perespon='creator',pegawai.bidang,NULL))AS bidang_creator,
+                                                        GROUP_CONCAT( IF(perespon.tipe_perespon='cordinator',pegawai.nama,NULL) )as cordinator
                                                         FROM tb_request request
                                                         LEFT JOIN tb_perespon perespon ON perespon.id_req = request.id 
                                                         LEFT JOIN tb_pegawai pegawai ON perespon.id_perespon = pegawai.id 
@@ -131,7 +132,7 @@
                                                     <td class='center'><?php echo $data['status'] ?></td>
                                                     <td class="center">
                                                         <div>
-                                                            <a data-toggle='tooltip' data-placement='top' title='Lihat Detail' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=form_detail&form=live&id=<?php echo $data['id'] ?>'>
+                                                            <a data-toggle='tooltip' data-placement='top' title='Lihat Detail' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=ticket_detail&ticket_id=<?php echo $data['id'] ?>'>
                                                                 <i style='color:#fff' class='fa fa-file-alt'></i>
                                                             </a>
                                                         </div>

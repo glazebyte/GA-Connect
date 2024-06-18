@@ -94,7 +94,7 @@ $(function () {
   $("#responder_select").select2({ theme: "bootstrap4" });
   $("#add_ticket").click(function (event) {
     $.ajax({
-      url: "api.php/ticketinfo",
+      url: "api.php/newticketinfo",
       type: "POST",
 
       success: function (data) {
@@ -120,41 +120,41 @@ $(function () {
     desc_data = editor1.getData();
     formdata.append('ticket_desc',desc_data);
     // console.log(...formdata);
-    // Swal.fire({
-    //   title: "Sedang mengunggah data...",
-    //   allowOutsideClick: false,
-    //   showConfirmButton: false,
-    //   didOpen: () => {
-    //     Swal.showLoading();
-    //   },
-    // });
+    Swal.fire({
+      title: "Sedang mengunggah data...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
-    // $.ajax({
-    //   url: "login-check.php",
-    //   type: "POST",
-    //   data: new FormData($("#ticket_form")[0]),
-    //   processData: false,
-    //   contentType: false,
-    //   success: function (data) {
-    //     response = JSON.parse(data);
-    //     Swal.fire({
-    //       icon: response.status === "success" ? "success" : "error",
-    //       title: response.status === "success" ? "Sukses" : "Error",
-    //       text: response.message,
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         window.location.href = "main.php?module=home";
-    //       }
-    //     });
-    //   },
-    //   error: function () {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Error",
-    //       text: "Terjadi kesalahan saat Login.",
-    //     });
-    //   },
-    // });
+    $.ajax({
+      url: "api.php/new_ticket",
+      type: "POST",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        console.log(data)
+        Swal.fire({
+          icon: data.status === "success" ? "success" : "error",
+          title: data.status === "success" ? "Sukses" : "Error",
+          text: data.message,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "main.php?module=send";
+          }
+        });
+      },
+      error: function () {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Terjadi kesalahan saat input.",
+        });
+      },
+    });
   });
   $(document).on(
     "collapsed.lte.pushmenu",
@@ -330,50 +330,6 @@ $(function () {
       },
     },
     // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
-    mention: {
-      feeds: [
-        {
-          marker: "@",
-          feed: [
-            "@apple",
-            "@bears",
-            "@brownie",
-            "@cake",
-            "@cake",
-            "@candy",
-            "@canes",
-            "@chocolate",
-            "@cookie",
-            "@cotton",
-            "@cream",
-            "@cupcake",
-            "@danish",
-            "@donut",
-            "@dragée",
-            "@fruitcake",
-            "@gingerbread",
-            "@gummi",
-            "@ice",
-            "@jelly-o",
-            "@liquorice",
-            "@macaroon",
-            "@marzipan",
-            "@oat",
-            "@pie",
-            "@plum",
-            "@pudding",
-            "@sesame",
-            "@snaps",
-            "@soufflé",
-            "@sugar",
-            "@sweet",
-            "@topping",
-            "@wafer",
-          ],
-          minimumCharacters: 1,
-        },
-      ],
-    },
     // The "superbuild" contains more premium features that require additional configuration, disable them below.
     // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
     removePlugins: [

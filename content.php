@@ -36,8 +36,8 @@ else {
 	elseif ($_GET['module'] == 'form_kelola') {
 		include "modules/manage/form.php";
 	}
-	elseif ($_GET['module'] == 'form_detail') {
-		include "modules/form_detail/form.php";
+	elseif ($_GET['module'] == 'ticket_detail') {
+		include "modules/ticket_detail/view.php";
 	}
 
 	// jika halaman konten yang dipilih barang, panggil file view barang
