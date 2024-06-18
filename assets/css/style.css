@@ -1,0 +1,25 @@
+#container {
+    width: 1000px;
+    margin: 20px auto;
+}
+.ck-editor__editable[role="textbox"] {
+    /* Editing area */
+    min-height: 200px;
+}
+.ck-content .image {
+    /* Block images */
+    max-width: 80%;
+    margin: 20px auto;
+}
+/* .modal{
+    display: block !important;
+} */
+
+/* Important part */
+/* .modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    height: 80vh;
+    overflow-y: auto;
+} */

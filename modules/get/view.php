@@ -47,7 +47,7 @@
                                                         GROUP_CONCAT( IF(perespon.tipe='creator',pegawai.nama,NULL))AS creator,                         
                                                         GROUP_CONCAT( IF(perespon.tipe='creator',pegawai.bidang,NULL))AS bidang_creator,
                                                         GROUP_CONCAT( IF(perespon.tipe='cordinator',pegawai.nama,NULL) )as cordinator,
-                                                        GROUP_CONCAT( IF(pegawai.nama='$_SESSION[nama_user]',pegawai.nama,NULL) )as responder
+                                                        GROUP_CONCAT( IF(pegawai.nama='$_SESSION[nama_user]' AND perespon.tipe='responder' ,pegawai.nama,NULL) )as responder
                                                         FROM tb_request request
                                                         LEFT JOIN tb_perespon perespon ON perespon.id_req = request.id 
                                                         LEFT JOIN tb_pegawai pegawai ON perespon.id_perespon = pegawai.id 

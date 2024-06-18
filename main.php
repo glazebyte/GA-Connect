@@ -6,7 +6,7 @@ session_start();
 <html lang="en" style="height: auto;">
 
 <head>
-	<title>Login | GA-Connect</title>
+	<title>GA-Connect</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,6 +34,9 @@ session_start();
 	<!-- summernote -->
 	<link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 	<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+	<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <body class="sidebar-mini layout-fixed" data-preload-duration="150" style="height: auto; ">
@@ -105,6 +108,9 @@ session_start();
 	<script src="dist/js/adminlte.js"></script>
 	<!-- overlayScrollbars -->
 	<!-- <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
+	<!-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> -->
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script type="text/javascript" src="assets/js/script.js"></script>
 </body>

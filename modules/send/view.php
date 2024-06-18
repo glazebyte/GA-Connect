@@ -5,93 +5,76 @@
                 <h1 class="m-0">Kirim Ticket</h1>
             </div>
             <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="main.php?module=home">Kirim</a></li>
-                </ol>
             </div>
         </div>
     </div>
 </section>
 <section class="content">
+
+
     <!-- The Modal -->
     <div class="modal fade" id="requestModal">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Request and Responder</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+                <form id="ticket_form" method="post" action="api.php/new_ticket">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Buat Ticket</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form id="requestForm">
+                    <!-- Modal Body -->
+                    <div class="modal-body">
                         <!-- tb_request Fields -->
-                        <h5>Request Information</h5>
+                        <h5>Ticket Information</h5>
                         <div class="form-group">
-                            <label for="reqId">Request ID</label>
-                            <input type="text" class="form-control" id="reqId" name="reqId" required>
+                            <label for="ticket_id">Ticket ID</label>
+                            <input type="text" class="form-control" id="ticket_id" name="ticket_id" required readonly>
                         </div>
                         <div class="form-group">
-                            <label for="subPesan">Subject</label>
-                            <input type="text" class="form-control" id="subPesan" name="subPesan" required>
+                            <label for="ticket_sub">Subject</label>
+                            <input type="text" class="form-control" id="ticket_sub" name="ticket_sub" required>
                         </div>
                         <div class="form-group">
-                            <label for="deskripsi">Description</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                            <label for="responders">Responder</label>
+                            <select class="form-control" id="responder_select" name="responders[]" multiple="multiple" required>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="levelPrioritas">Priority Level</label>
-                            <select class="form-control" id="levelPrioritas" name="levelPrioritas" required>
+                            <label for="editor">Deskripsi</label>
+                            <div id="toolbar-container"></div>
+                            <div id="editor1"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticket_priority">Priority Level</label>
+                            <select class="form-control" id="ticket_priority" name="ticket_priority" required>
                                 <option value="low">Low</option>
                                 <option value="mid">Mid</option>
                                 <option value="high">High</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="waiting">Waiting</option>
-                                <option value="on process">On Process</option>
-                                <option value="done">Done</option>
-                                <option value="refused">Refused</option>
-                            </select>
-                        </div>
+                    </div>
 
-                        <!-- tb_perespon Fields -->
-                        <h5>Responder Information</h5>
-                        <div class="form-group">
-                            <label for="idPerespon">Responder ID</label>
-                            <input type="text" class="form-control" id="idPerespon" name="idPerespon">
-                        </div>
-                        <div class="form-group">
-                            <label for="tipePerespon">Responder Type</label>
-                            <select class="form-control" id="tipePerespon" name="tipePerespon" required>
-                                <option value="creator">Creator</option>
-                                <option value="responder">Responder</option>
-                                <option value="cordinator">Coordinator</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+
     <div class="container-fluid">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal">
-            Add Request and Responder
-        </button>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Data ticketing yg terkirim</h3>
+                        <button type="button" id="add_ticket" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#requestModal">
+                            Buat Ticket
+                        </button>
                     </div>
                     <div class="card-body">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
