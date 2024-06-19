@@ -156,6 +156,90 @@ $(function () {
       },
     });
   });
+  $("#detail_form").submit(function (event) {
+    event.preventDefault();
+    formdata = new FormData($("#detail_form")[0]);
+    desc_data = editor1.getData();
+    formdata.append('detail_desc',desc_data);
+    formdata.append('detail_type','response');
+    console.log(...formdata);
+    Swal.fire({
+      title: "Sedang mengunggah data...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    $.ajax({
+      url: "api.php/add_detail_respon",
+      type: "POST",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        Swal.fire({
+          icon: data.status === "success" ? "success" : "error",
+          title: data.status === "success" ? "Sukses" : "Error",
+          text: data.message,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      },
+      error: function () {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Terjadi kesalahan saat input.",
+        });
+      },
+    });
+  });
+  $(".add_cordinator").click(function (event) {
+    formdata = new FormData();
+    var clickedButton = document.activeElement;
+    if (clickedButton && clickedButton.type === "submit") {
+        formdata.append(clickedButton.name, clickedButton.value);
+    }
+    // console.log(...formdata);
+    Swal.fire({
+      title: "Sedang mengunggah data...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    $.ajax({
+      url: "api.php/add_cordinator",
+      type: "POST",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        Swal.fire({
+          icon: data.status === "success" ? "success" : "error",
+          title: data.status === "success" ? "Sukses" : "Error",
+          text: data.message,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      },
+      error: function () {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Terjadi kesalahan saat input.",
+        });
+      },
+    });
+  });
   $(document).on(
     "collapsed.lte.pushmenu",
     '[data-widget="pushmenu"]',
@@ -165,6 +249,15 @@ $(function () {
   );
   $(document).on("shown.lte.pushmenu", '[data-widget="pushmenu"]', function () {
     $sidebar_collapsed_checkbox.prop("checked", false);
+  });
+  $('#datatables1').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
   });
   CKEDITOR.ClassicEditor.create(document.getElementById("editor1"), {
     // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format

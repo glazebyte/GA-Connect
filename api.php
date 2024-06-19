@@ -29,7 +29,18 @@ function insertTicketResponder($ticket_id,$responder_id,$responder_type){
 function inserTicketDetail($responder_id,$ticket_id,$respon_desc,$respon_type){
     global $mysqli;
     $sql = "CALL add_detail_respon($responder_id,'$ticket_id','$respon_desc','$respon_type');";
-    $mysqli->query($sql);
+    try {
+        $mysqli->query($sql);
+        $response = array(
+            'status'=> 'success',
+            'message'=> 'Berhasil Insert'
+        );
+    } catch (mysqli_sql_exception $e) {
+        $response = array(
+            'message'=> $e->getMessage()
+        );
+    }
+    return $response;
 }
 function getTicketInfo( $ticket_id ){
     global $mysqli;
@@ -79,6 +90,20 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
             header('Content-Type: application/json');
             echo json_encode(getTicketInfo($ticket_id));
             break;
+        case '/api.php/add_detail_respon':
+            http_response_code(200);
+            header('Content-Type: application/json');
+            echo json_encode(inserTicketDetail($_POST['responder_id'],$_POST['ticket_id'],$_POST['detail_desc'],$_POST['detail_type']));
+            break;
+        case '/api.php/add_cordinator':
+            http_response_code(200);
+            header('Content-Type: application/json');
+            insertTicketResponder($_POST['ticket_id'],$_SESSION['id_user'],'cordinator');
+            $response = array(
+                'status'=> 'success',
+                'message'=> 'Berhasil Insert'
+            );
+            echo json_encode($response);
     }
 }
 ?>

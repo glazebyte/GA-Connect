@@ -50,7 +50,7 @@
                                                         FROM tb_request request
                                                         LEFT JOIN tb_perespon perespon ON perespon.id_req = request.id 
                                                         LEFT JOIN tb_pegawai pegawai ON perespon.id_perespon = pegawai.id 
-                                                        GROUP BY request.id HAVING cordinator = '$_SESSION[nama_user]'";
+                                                        GROUP BY request.id ";
                                             try {
                                                 $query = $mysqli->query($sql);
                                             } catch (mysqli_sql_exception $e) {
@@ -75,9 +75,15 @@
                                                     <td class='center'><?php echo $data['status'] ?></td>
                                                     <td class="center">
                                                         <div>
+                                                            <?php if($data['cordinator']!=null){?>
                                                             <a data-toggle='tooltip' data-placement='top' title='Lihat Detail' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=ticket_detail&ticket_id=<?php echo $data['id'] ?>'>
                                                                 <i style='color:#fff' class='fa fa-file-alt'></i>
                                                             </a>
+                                                            <?php }else{?>
+                                                            <button title='Jadi Kordinator' style='margin-right:5px' class='add_cordinator btn btn-primary btn-sm' name="ticket_id" value="<?php echo $data['id'] ?>">
+                                                                <i style='color:#fff' class='fa fa-plus-circle'></i>
+                                                            </button>
+                                                            <?php }?>
                                                         </div>
                                                     </td>
                                                 </tr>

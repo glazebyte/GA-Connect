@@ -18,7 +18,7 @@
 <section class="content">
 
     <div class="modal fade" id="respon_modal">
-        <form id="ticket_form" method="post" action="api.php/new_ticket">
+        <form id="detail_form" method="post" action="api.php/add_ticket_detail">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <!-- Modal Header -->
@@ -34,6 +34,10 @@
                             <label for="editor">Deskripsi</label>
                             <div id="toolbar-container"></div>
                             <div id="editor1"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="ticket_id" value="<?php echo $_GET['ticket_id'] ?>">
+                            <input type="hidden" name="responder_id" value="<?php echo $_SESSION['id_user'] ?>">
                         </div>
                     </div>
 
@@ -71,7 +75,7 @@
                             $created_time = date('H:i', $date1);
                             ?>
                             <div class="time-label">
-                                <span class="bg-red"><?php echo $created_date ?></span>
+                                <span class="bg-info"><?php echo $created_date ?></span>
                             </div>
                             <!-- /.timeline-label -->
                             <!-- timeline item -->
@@ -89,6 +93,84 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            $sql = "SELECT pegawai.nama ,pegawai.bidang ,detail_respon.deskripsi,detail_respon.tipe_detail,detail_respon.respon_at 
+                                        FROM tb_detail_respon detail_respon
+                                        LEFT JOIN tb_perespon perespon ON perespon.id = detail_respon.id_respon 
+                                        LEFT JOIN tb_pegawai pegawai ON pegawai.id = perespon.id_perespon 
+                                        WHERE perespon.id_req = '$_GET[ticket_id]'";
+                            $result = $mysqli->query($sql);
+                            while ($data = $result->fetch_assoc()) {
+                                $date1        = strtotime($data['respon_at']);
+                                $created_date1 = date('j F, Y', $date1);
+                                $created_time = date('H:i', $date1);
+                                if ($created_date != $created_date1) {
+                                    $created_date = $created_date1;
+                            ?>
+                                    <div class="time-label">
+                                        <span class="bg-info"><?php echo $created_date ?></span>
+                                    </div>
+                                <?php
+                                }
+                                if ($data['tipe_detail'] == 'accept') {
+                                ?>
+                                    <div>
+                                        <i class="fa fa-user-check bg-success"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> <?php echo $created_time ?></span>
+
+                                            <h3 class="timeline-header"><a><?php echo $data['bidang'] ?></a> <?php echo $data['nama'] ?> Accept Ticket</h3>
+
+                                        </div>
+                                    </div>
+                                <?php
+                                } elseif ($data['tipe_detail'] == 'response') {
+                                ?>
+                                    <div>
+                                        <i class="fas fa-envelope bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fas fa-clock"></i> <?php echo $created_time ?></span>
+                                            <h3 class="timeline-header"><a><?php echo $data['bidang'] ?></a> <?php echo $data['nama'] ?> Send a response</h3>
+                                            <div class="timeline-body center">
+                                                <div class="ck-restricted-editing_mode_standard ck ck-content ck-rounded-corners ck-read-only ck-column-resize_disabled ck-blurred" lang="en" dir="ltr" role="textbox">
+                                                    <?php echo $data['deskripsi'] ?>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                } elseif ($data['tipe_detail'] == 'refuse') {
+                                ?>
+                                    <div>
+                                        <i class="fa fa-times bg-danger"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> <?php echo $created_time ?></span>
+
+                                            <h3 class="timeline-header"><a><?php echo $data['bidang'] ?></a> <?php echo $data['nama'] ?> Refused Ticket</h3>
+
+                                        </div>
+                                    </div>
+                                <?php
+                                } elseif ($data['tipe_detail'] == 'done') {
+                                ?>
+                                    <div>
+                                        <i class="fa fa-check bg-success"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> <?php echo $created_time ?></span>
+
+                                            <h3 class="timeline-header"><a><?php echo $data['bidang'] ?></a> <?php echo $data['nama'] ?> Mark Ticket as Done</h3>
+
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            }
+                            ?>
                             <!-- END timeline item -->
                             <!-- timeline item -->
                             <div>
@@ -132,9 +214,15 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-primary">Accept</button>
-                        <button type="button" class="btn btn-danger">Refuse</button>
-                        <button type="button" class="btn btn-success"> Mark as done</button>
+                        <?php if ($_SESSION['bidang'] == 'GA') { ?>
+                            <form id="mark_form" method="post" action="api.php/add_ticket_detail">
+                                <input type="hidden" name="ticket_id" value="<?php echo $_GET['ticket_id'] ?>">
+                                <input type="hidden" name="responder_id" value="<?php echo $_SESSION['id_user'] ?>">
+                                <button type="submit" name="detail_type" value="accept" class="btn btn-primary">Accept</button>
+                                <button type="submit" name="detail_type" value="refuse" class="btn btn-danger">Refuse</button>
+                                <button type="submit" name="detail_type" value="done" class="btn btn-success"> Mark as done</button>
+                            </form>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
