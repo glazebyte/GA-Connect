@@ -30,7 +30,7 @@ else {
 	elseif ($_GET['module'] == 'form_terima') {
 		include "modules/get/form.php";
 	}
-	elseif ($_GET['module'] == 'manage') {
+	elseif ($_GET['module'] == 'manage' && $_SESSION['bidang']=='GA') {
 		include "modules/manage/view.php";
 	}
 	elseif ($_GET['module'] == 'form_kelola') {

@@ -9,7 +9,7 @@
 }
 .tab-custom{
     min-height: 700px;
-    max-height: 800px;
+    max-height: 700px;
     overflow: auto;
 }
 .ck-editor__editable_inline {

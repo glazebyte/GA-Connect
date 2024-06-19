@@ -46,6 +46,7 @@
                                     </p>
                                 </a>
                             </li>
+                            <?php if($_SESSION['bidang']=='GA'){?> 
                             <li class="nav-item">
                                 <a href="main.php?module=manage" class="nav-link <?php echo $manage?>">
                                     <i class="nav-icon fa fa-file-alt"></i>
@@ -54,6 +55,7 @@
                                     </p>
                                 </a>
                             </li>
+                            <?php }?>
                         </ul>
                     <?php } ?>
                 </nav>

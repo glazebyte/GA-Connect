@@ -79,7 +79,7 @@
                                                             <a data-toggle='tooltip' data-placement='top' title='Lihat Detail' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=ticket_detail&ticket_id=<?php echo $data['id'] ?>'>
                                                                 <i style='color:#fff' class='fa fa-file-alt'></i>
                                                             </a>
-                                                            <?php }else{?>
+                                                            <?php }else if($_SESSION['bidang']=='GA'){?>
                                                             <button title='Jadi Kordinator' style='margin-right:5px' class='add_cordinator btn btn-primary btn-sm' name="ticket_id" value="<?php echo $data['id'] ?>">
                                                                 <i style='color:#fff' class='fa fa-plus-circle'></i>
                                                             </button>

@@ -70,6 +70,7 @@
                             WHERE request.id = '$_GET[ticket_id]';";
                             $result = $mysqli->query($sql);
                             $data = $result->fetch_assoc();
+                            $status = $data["status"];
                             $date1        = strtotime($data['created_at']);
                             $created_date = date('j F, Y', $date1);
                             $created_time = date('H:i', $date1);
@@ -179,7 +180,9 @@
                         </div>
                     </div>
                     <div class="card-footer">
+                        <?php if($status=='on process'){?>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#respon_modal">beri respon</button>
+                        <?php }?>
                     </div>
                 </div>
                 <!-- The time line -->
