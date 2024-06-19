@@ -2,7 +2,7 @@
 // deklarasi parameter koneksi database 
 $server   = "localhost";
 $username = "root";
-$password = "makan";
+$password = "";
 $database = "ga_connect";
 
 // koneksi database
